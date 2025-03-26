@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="16" fill="#81C14B"/>
+  
+  <!-- Calendar icon -->
+  <rect x="24" y="32" width="80" height="72" rx="4" fill="white"/>
+  
+  <!-- Calendar header -->
+  <rect x="24" y="32" width="80" height="16" rx="4" fill="#444"/>
+  
+  <!-- Calendar days -->
+  <circle cx="44" cy="68" r="8" fill="#81C14B"/>
+  <circle cx="64" cy="68" r="8" fill="#81C14B"/>
+  <circle cx="84" cy="68" r="8" fill="#81C14B"/>
+  
+  <circle cx="44" cy="88" r="8" fill="#81C14B"/>
+  <circle cx="64" cy="88" r="8" fill="#81C14B" stroke="#444" stroke-width="2"/>
+  <circle cx="84" cy="88" r="8" fill="#81C14B"/>
+  
+  <!-- Eksisozluk "e" symbol -->
+  <text x="64" y="24" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold" text-anchor="middle">DEBE</text>
+</svg>
