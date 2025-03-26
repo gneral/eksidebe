@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 > nul
 REM EkşiSözlük Debe Tarih Seçici Kurulum Betiği
 REM Dosya yolu: /home/main/public_html/ai.zefre.net/eksidebe/kurulum.bat
 REM 
