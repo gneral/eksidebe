@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "EkşiSözlük Debe Tarih Seçici",
-  "version": "1.0",
+  "version": "1.1",
   "description": "EkşiSözlük Debe sayfasına tarih seçme özelliği ekler",
   "author": "Muhsin İŞSEVER",
   "icons": {
@@ -13,7 +13,8 @@
     {
       "matches": ["*://eksisozluk.com/debe*"],
       "js": ["content.js"],
-      "css": ["styles.css"]
+      "css": ["styles.css"],
+      "run_at": "document_end"
     }
   ],
   "permissions": ["activeTab"],

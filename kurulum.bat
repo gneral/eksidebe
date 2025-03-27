@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 > nul
-REM EkşiSözlük Debe Tarih Seçici Kurulum Betiği
+REM EkşiSözlük Debe Tarih Seçici Kurulum Betiği (Güncellenmiş)
 REM Dosya yolu: /home/main/public_html/ai.zefre.net/eksidebe/kurulum.bat
 REM 
 REM Orijinal geliştiren: Muhsin İŞSEVER
@@ -9,49 +9,79 @@ REM Web sitesi: https://ai.zefre.net/
 REM r10 profili: https://www.r10.net/profil/193-gneral.html
 REM Github: https://www.github.com/gneral
 
-echo EkşiSözlük Debe Tarih Seçici Kurulum Betiği
-echo ---------------------------------------------
+echo EkşiSözlük Debe Tarih Seçici Kurulum Betiği (v1.1)
+echo -------------------------------------------------
 echo.
 
-REM Chrome tarayıcısı kontrolü
-echo Chrome tarayıcısı kontrol ediliyor...
-set CHROME_FOUND=0
+REM Chrome, Edge ve Firefox tarayıcı kontrolü
+echo Tarayıcılar kontrol ediliyor...
+set BROWSER_FOUND=0
+set BROWSER_EXE=
+set BROWSER_NAME=
 
-REM Bilinen lokasyonlarda Chrome'u ara
+REM Chrome kontrolü
 if exist "%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe" (
     echo Chrome tarayıcısı bulundu: %LOCALAPPDATA%\Google\Chrome\Application\chrome.exe
-    set CHROME_EXE="%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
-    set CHROME_FOUND=1
-    goto CHROME_FOUND
+    set BROWSER_EXE="%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
+    set BROWSER_NAME=Chrome
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
 )
 
 if exist "C:\Program Files\Google\Chrome\Application\chrome.exe" (
     echo Chrome tarayıcısı bulundu: C:\Program Files\Google\Chrome\Application\chrome.exe
-    set CHROME_EXE="C:\Program Files\Google\Chrome\Application\chrome.exe"
-    set CHROME_FOUND=1
-    goto CHROME_FOUND
+    set BROWSER_EXE="C:\Program Files\Google\Chrome\Application\chrome.exe"
+    set BROWSER_NAME=Chrome
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
 )
 
 if exist "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" (
     echo Chrome tarayıcısı bulundu: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-    set CHROME_EXE="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-    set CHROME_FOUND=1
-    goto CHROME_FOUND
+    set BROWSER_EXE="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    set BROWSER_NAME=Chrome
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
 )
 
-REM Chrome bulunamazsa, doğrudan chrome komutunu dene
-where chrome >nul 2>nul
-if %ERRORLEVEL% equ 0 (
-    echo Chrome PATH üzerinde bulundu.
-    set CHROME_EXE=chrome
-    set CHROME_FOUND=1
-    goto CHROME_FOUND
+REM Edge kontrolü
+if exist "%PROGRAMFILES(x86)%\Microsoft\Edge\Application\msedge.exe" (
+    echo Microsoft Edge tarayıcısı bulundu: %PROGRAMFILES(x86)%\Microsoft\Edge\Application\msedge.exe
+    set BROWSER_EXE="%PROGRAMFILES(x86)%\Microsoft\Edge\Application\msedge.exe"
+    set BROWSER_NAME=Edge
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
 )
 
-echo Chrome bulunamadı. Manuel kurulum yapmanız gerekecek.
+if exist "%PROGRAMFILES%\Microsoft\Edge\Application\msedge.exe" (
+    echo Microsoft Edge tarayıcısı bulundu: %PROGRAMFILES%\Microsoft\Edge\Application\msedge.exe
+    set BROWSER_EXE="%PROGRAMFILES%\Microsoft\Edge\Application\msedge.exe"
+    set BROWSER_NAME=Edge
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
+)
+
+REM Firefox kontrolü
+if exist "%PROGRAMFILES%\Mozilla Firefox\firefox.exe" (
+    echo Firefox tarayıcısı bulundu: %PROGRAMFILES%\Mozilla Firefox\firefox.exe
+    set BROWSER_EXE="%PROGRAMFILES%\Mozilla Firefox\firefox.exe"
+    set BROWSER_NAME=Firefox
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
+)
+
+if exist "%PROGRAMFILES(x86)%\Mozilla Firefox\firefox.exe" (
+    echo Firefox tarayıcısı bulundu: %PROGRAMFILES(x86)%\Mozilla Firefox\firefox.exe
+    set BROWSER_EXE="%PROGRAMFILES(x86)%\Mozilla Firefox\firefox.exe"
+    set BROWSER_NAME=Firefox
+    set BROWSER_FOUND=1
+    goto BROWSER_FOUND
+)
+
+echo Desteklenen tarayıcılar bulunamadı. Manuel kurulum yapmanız gerekecek.
 goto MANUEL_KURULUM
 
-:CHROME_FOUND
+:BROWSER_FOUND
 REM Klasör yapısını kontrol et
 echo Klasör yapısı kontrol ediliyor...
 if not exist "icons" (
@@ -59,15 +89,18 @@ if not exist "icons" (
     mkdir icons
 )
 
-REM SVG ikonları oluştur
-echo SVG ikonları oluşturuluyor...
+REM SVG ikonları oluştur (eğer yoksa)
+echo SVG ikonları kontrol ediliyor...
 if not exist "icons\icon16.svg" (
+    echo icon16.svg oluşturuluyor...
     copy "icon.svg" "icons\icon16.svg" >nul 2>nul
 )
 if not exist "icons\icon48.svg" (
+    echo icon48.svg oluşturuluyor...
     copy "icon.svg" "icons\icon48.svg" >nul 2>nul
 )
 if not exist "icons\icon128.svg" (
+    echo icon128.svg oluşturuluyor...
     copy "icon.svg" "icons\icon128.svg" >nul 2>nul
 )
 
@@ -77,29 +110,44 @@ echo.
 
 :KURULUM_SECENEGI
 echo Lütfen kurulum seçeneğini seçin:
-echo 1. Chrome'da eklentiyi aç (önerilen)
+echo 1. %BROWSER_NAME% tarayıcısında eklentiyi kur (önerilen)
 echo 2. Manuel kurulum talimatlarını göster
 echo 3. Çıkış
 set /p KURULUM_SECIM=Seçiminiz (1-3): 
 
 if "%KURULUM_SECIM%"=="1" (
-    if "%CHROME_FOUND%"=="1" (
-        echo Chrome'da uzantılar sayfası açılıyor...
-        start "" %CHROME_EXE% "chrome://extensions/"
+    if "%BROWSER_FOUND%"=="1" (
+        echo %BROWSER_NAME% tarayıcısında uzantılar sayfası açılıyor...
+        
+        if "%BROWSER_NAME%"=="Chrome" (
+            start "" %BROWSER_EXE% "chrome://extensions/"
+        ) else if "%BROWSER_NAME%"=="Edge" (
+            start "" %BROWSER_EXE% "edge://extensions/"
+        ) else if "%BROWSER_NAME%"=="Firefox" (
+            start "" %BROWSER_EXE% "about:debugging#/runtime/this-firefox"
+        )
         
         echo.
         echo Lütfen şu adımları takip edin:
-        echo 1. Açılan sayfada "Geliştirici modu"nu etkinleştirin (sağ üst köşede)
-        echo 2. "Paketlenmemiş öğe yükle" butonuna tıklayın
-        echo 3. Bu klasörü seçin
+        
+        if "%BROWSER_NAME%"=="Firefox" (
+            echo 1. Açılan sayfada "Bu Firefox" sekmesini seçin
+            echo 2. "Geçici Eklenti Yükle" butonuna tıklayın
+            echo 3. Bu klasördeki manifest.json dosyasını seçin
+        ) else (
+            echo 1. Açılan sayfada "Geliştirici modu"nu etkinleştirin (sağ üst köşede)
+            echo 2. "Paketlenmemiş öğe yükle" butonuna tıklayın
+            echo 3. Bu klasörü seçin
+        )
+        
         echo 4. Eklenti kurulacak ve aktif hale gelecektir
         echo.
         echo EkşiSözlük Debe sayfasını açmak için Enter tuşuna basın.
         pause >nul
         
-        start "" %CHROME_EXE% "https://eksisozluk.com/debe"
+        start "" %BROWSER_EXE% "https://eksisozluk.com/debe"
     ) else (
-        echo Chrome açılamadı. Lütfen manuel kurulum yapın.
+        echo Tarayıcı açılamadı. Lütfen manuel kurulum yapın.
         goto MANUEL_KURULUM
     )
     goto SON
@@ -136,6 +184,7 @@ pause
 :SON
 echo.
 echo EkşiSözlük Debe Tarih Seçici kurulum işlemi tamamlandı.
+echo Sorun yaşarsanız https://ai.zefre.net/ adresini ziyaret edebilirsiniz.
 echo İyi kullanımlar!
 echo.
 pause

@@ -10,66 +10,97 @@
  */
 
  .date-picker-container {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    padding: 8px 10px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.date-picker-container label {
+  font-weight: bold;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.debe-date-picker {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-family: inherit;
+  flex-grow: 1;
+  max-width: 200px;
+}
+
+.debe-fetch-button {
+  background-color: #81C14B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.debe-fetch-button:hover {
+  background-color: #6DA93F;
+}
+
+.debe-fetch-button:active {
+  transform: scale(0.98);
+}
+
+.debe-status {
+  margin-left: 10px;
+  font-style: italic;
+  color: #666;
+  padding-left: 10px;
+  border-left: 1px solid #ddd;
+}
+
+/* EkşiSözlük koyu tema uyumluluğu */
+body.dark-theme .date-picker-container {
+  background-color: #2d2d2d;
+  border: 1px solid #444;
+}
+
+body.dark-theme .debe-date-picker {
+  background-color: #333;
+  color: #eee;
+  border-color: #555;
+}
+
+body.dark-theme .debe-status {
+  color: #aaa;
+  border-left-color: #555;
+}
+
+/* Mobil ekranlar için */
+@media screen and (max-width: 768px) {
+  .date-picker-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .date-picker-container label {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .debe-date-picker {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-family: inherit;
-  }
-  
+  .date-picker-container label,
+  .debe-date-picker,
   .debe-fetch-button {
-    background-color: #81C14B;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
-  
-  .debe-fetch-button:hover {
-    background-color: #6DA93F;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: none;
   }
   
   .debe-status {
-    margin-left: 10px;
-    font-style: italic;
-    color: #666;
+    margin-left: 0;
+    margin-top: 8px;
+    padding-left: 0;
+    border-left: none;
+    width: 100%;
   }
-  
-  /* Mobil ekranlar için */
-  @media screen and (max-width: 768px) {
-    .date-picker-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .date-picker-container label,
-    .debe-date-picker,
-    .debe-fetch-button {
-      margin-bottom: 8px;
-      width: 100%;
-    }
-    
-    .debe-status {
-      margin-left: 0;
-      margin-top: 8px;
-    }
-  }
+}
